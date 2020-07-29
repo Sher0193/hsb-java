@@ -120,6 +120,10 @@ public class Bot extends ListenerAdapter {
 		return token;
 	}
 	
+	public String getPrefix() {
+		return prefix;
+	}
+	
 	public ScoreboardHandler getScoreboardHandler() {
 		return sh;
 	}

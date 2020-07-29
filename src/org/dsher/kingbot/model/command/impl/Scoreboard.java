@@ -10,7 +10,8 @@ import net.dv8tion.jda.api.entities.User;
 public class Scoreboard extends Command {
 
 	public Scoreboard() {
-		helpEntry = "**BASICS**\n\"!scoreboard\" displays the current score for this channel's scoreboard.\n**CREATING A SCOREBOARD FOR THE CHANNEL**\nSimply use the command \"!scoreboard create\" to create a scoreboard. If one exists already, this command will overwrite the previous board.\n**CLEARING THE SCOREBOARD**\nThe current scoreboard may be erased from this channel with \"!scoreboard clear\".";
+		String prefix = Bot.getBotInstance().getPrefix();
+		helpEntry = "**BASICS**\n\"" + prefix + "scoreboard\" displays the current score for this channel's scoreboard.\n**CREATING A SCOREBOARD FOR THE CHANNEL**\nSimply use the command \"" + prefix + "scoreboard create\" to create a scoreboard. If one exists already, this command will overwrite the previous board.\n**CLEARING THE SCOREBOARD**\nThe current scoreboard may be erased from this channel with \"" + prefix + "scoreboard clear\".";
 		commands = new String[] {"scoreboard", "sb"};
 	}
 

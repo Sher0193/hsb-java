@@ -14,7 +14,8 @@ import net.dv8tion.jda.api.entities.User;
 public class Score extends Command {
 
 	public Score() {
-		helpEntry = "\"**BASICS**\\nUse \\\"!score\\\" to add points for a list of users to the channel's scoreboard. A scoreboard must have been created for the channel with \\\"!scoreboard create\\\".\\n\\\"!score\\\" requires a comma-separated list of names, such as \\\"!score Crosby, Stills, Nash, Young\\\".\\n**MULTIPLE POINT VALUES**\\nBy default, \\\"!score\\\" will award one point. In addition, \\\"!half\\\" will award 0.5 points, \\\"!penalty\\\" will award -1 point, and \\\"!penaltyhalf\\\" will award -0.5 points.\\nYou may precede a list of names with a number and colon to award that value to the following list, such as \\\"!score 5: Crosby, Stills, Nash, Young\\\", which will award 5 points. You may mix point values in a single command, such as \\\"!score 5: Crosby, Stills 10: Nash, Young\\\", which will award 5 to Crosby and Stills, then 10 to Nash and Young.\"";
+		String prefix = Bot.getBotInstance().getPrefix();
+		helpEntry = "\"**BASICS**\nUse \"" + prefix + "score\" to add points for a list of users to the channel's scoreboard. A scoreboard must have been created for the channel with \"" + prefix + "scoreboard create\".\n\"" + prefix + "score\" requires a comma-separated list of names, such as \"" + prefix + "score Crosby, Stills, Nash, Young\".\n**MULTIPLE POINT VALUES**\nBy default, \"" + prefix + "score\" will award one point. In addition, \"" + prefix + "half\" will award 0.5 points, \"" + prefix + "penalty\" will award -1 point, and \"" + prefix + "penaltyhalf\" will award -0.5 points.\nYou may precede a list of names with a number and colon to award that value to the following list, such as \"" + prefix + "score 5: Crosby, Stills, Nash, Young\", which will award 5 points. You may mix point values in a single command, such as \"" + prefix + "score 5: Crosby, Stills 10: Nash, Young\", which will award 5 to Crosby and Stills, then 10 to Nash and Young.\"";
 		commands = new String[] {"score", "half", "penalty", "penaltyhalf", "sc"};
 	}
 
@@ -24,7 +25,7 @@ public class Score extends Command {
 			return false;
 		}
 		if (args[0].isEmpty()) {
-			channel.sendMessage("Please enter a list of names separated by commas e.g. \"!score Crosby, Stills, Nash, Young\"").queue();;
+			channel.sendMessage("Please enter a list of names separated by commas e.g. \"" + Bot.getBotInstance().getPrefix() + "score Crosby, Stills, Nash, Young\"").queue();;
 			return false;
 		} else {
 			Scoreboard sb = Bot.getBotInstance().getScoreboardHandler().getScoreboardById(channel.getId());
@@ -76,66 +77,11 @@ public class Score extends Command {
 				}
 			}
 			if (!changeMsg.isEmpty()) {
-				channel.sendMessage(sb.buildScoreboard(false, changeMsg)).queue();;
+				channel.sendMessage(sb.buildScoreboard(false, changeMsg)).queue();
+				return true;
 			}
-			/*arrs = new ArrayList<>();
-	        amts = new Array();
-	        for (let i = args.length - 1; i >= 0; i--) {
-	            if (args[i].charAt(args[i].length - 1) === ":" || !isNaN(args[i])) { // add passed number to amts, number: is legacy
-	                if (args[i].charAt(args[i].length - 1) == ":") {
-	                    amtstring = args[i].slice(0, -1);
-	                } else {
-	                    amtstring = args[i];
-	                }
-	                if (!isNaN(amtstring) && amtstring !== "") {
-	                    amts.push(parseFloat(amtstring));
-	                    arrs.push(args.splice(i + 1, args.length - i));
-	                    args.splice(i, 1);
-	                } else {
-	                    return;
-	                }
-	            } else if (i === 0) {
-	                amts.push(1);
-	                arrs.push(args);
-	            }
-	        }*/
 		}
-		/*var scoreboard = sh.getScoreboardById(channel.id);
-	    var success = "";
-	    for (let i = 0; i < arrs.length; i++) {
-	        var amt = amts[i];
-	        amt = command === "penalty" ? amt * -1 : command === "half" ? amt * 0.5 : command === "penaltyhalf" ? amt * -0.5 : amt;
-	        newargs = arrs[i].join(" ").split(",");
-	        var points = amt === 1 ? "point" : "points";
-	        var next = "Added " + amt + " " + points + " for ";
-	        let j, k;
-	        for (j = 0, k = 0; j < newargs.length; j++) {
-	            if (newargs[j] === "")
-	                continue;
-	            if (j != 0)
-	                next += ", ";
-	            next += newargs[j].trim();
-	            k++;
-	        }
-	        if (k === 0)
-	            continue;
-	        next += ".\n";
-	        success += next;
-	        if (scoreboard !== null) {
-	            scoreboard.addScores(newargs, amt);
-	            sh.saveScoreboards();
-
-	        } else {
-	            channel.sendMessage("Could not find scoreboard.");
-	            return;
-	        }
-
-	    }
-	    if (success != "") {
-	        channel.send(scoreboard.buildScoreboard(false, success));
-	    }
-		 */
-		return true;
+		return false;
 	}
 
 	private boolean isNumeric(String s) {
