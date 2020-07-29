@@ -12,7 +12,7 @@ public class Ping extends Command {
 		helpEntry = Bot.getBotInstance().getName() + " will measure and output the time it takes in milliseconds to receive a response from its server.";
 		commands = new String[] {"ping"};
 	}
-	
+
 	@Override
 	public boolean execute(String command, String[] args, MessageChannel channel, User author) {
 		long time = System.currentTimeMillis();
@@ -22,5 +22,5 @@ public class Ping extends Command {
 		});
 		return true;
 	}
-	
+
 }

@@ -6,7 +6,7 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 
 public class TemplateCommand extends Command {
-	
+
 	public TemplateCommand() {
 		// add the help entry for this command here
 		helpEntry = "A short description about how to use this command.";

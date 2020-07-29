@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 
 public class CommandHandler {
-	
+
 	private static final Command[] COMMANDS = {
 			new Ping(),
 			new Score(),
@@ -18,7 +18,7 @@ public class CommandHandler {
 			new Help(),
 			new Roll()
 	};
-	
+
 	/***
 	 * Returns a command object with a matching command string.
 	 * @param strCmd The string to match to a command.
@@ -31,15 +31,15 @@ public class CommandHandler {
 		}
 		return null;
 	}
-	
+
 	public static Command[] getCommands() {
 		return COMMANDS;
 	}
-	
+
 	public static boolean handleUnprefixedCommand(String message) {
 		return false;
 	}
-	
+
 	public static boolean handleCommand(String command, String[] args, MessageChannel channel, User author) {
 		Command cObj = getCommand(command);
 		if (cObj != null) {

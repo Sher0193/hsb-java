@@ -45,7 +45,7 @@ public class Score extends Command {
 						String[][] arrays = spliceArray(args, i);
 						amt = Double.parseDouble(arrays[1][0].replace(":", "")) * mod;
 						users = spliceArray(arrays[1], 1)[1];
-						
+
 						args = arrays[0];
 					} else {
 						users = args;
@@ -54,7 +54,7 @@ public class Score extends Command {
 
 					String points = amt == 1 ? "point" : "points";
 					String score = new DecimalFormat("0.####").format(amt);
-					
+
 					String msg = "Added " + score + " " + points + " for ";
 
 					int j, k;
