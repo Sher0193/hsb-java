@@ -64,7 +64,7 @@ public class Score extends Command {
 							continue;
 						if (j != 0)
 							msg += ", ";
-						msg += newArgs[j].trim();
+						msg += Utils.capitalize(newArgs[j].trim());
 						k++;
 					}					
 					if (k == 0)

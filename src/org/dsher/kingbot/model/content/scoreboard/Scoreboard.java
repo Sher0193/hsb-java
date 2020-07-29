@@ -1,6 +1,5 @@
 package org.dsher.kingbot.model.content.scoreboard;
 
-import java.awt.Color;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.Arrays;
@@ -37,11 +36,11 @@ public class Scoreboard implements Serializable {
 	
 	public boolean addScore(String user, double amt) {
 		// Try to find existing user
-		String toFind = user.trim();
+		String toFind = user.trim().toLowerCase();
 		if (this.scores.get(toFind) != null) {
 			this.scores.replace(toFind, this.scores.get(toFind) + amt < 0 ? 0 : this.scores.get(toFind) + amt);
 		} else {		
-			this.scores.put(toFind.substring(0, 1).toUpperCase() + toFind.substring(1), amt);
+			this.scores.put(toFind, amt);
 		}
 		return true;
 	}
@@ -58,7 +57,7 @@ public class Scoreboard implements Serializable {
         if (!this.channel.isEmpty()) {
         	EmbedBuilder builder = new EmbedBuilder()
         	.setTitle(end ? "Final Score:" : "Current Score")
-        	.setColor(Color.BLUE)
+        	.setColor(0xf20963)
         	.setDescription(this.scoresToString(end));
             if (!msg.isEmpty()) {
             	builder.addField(new Field("Change:", msg, false));
@@ -83,7 +82,7 @@ public class Scoreboard implements Serializable {
                 if (i > 0 && this.scores.get(users[i]) < this.scores.get(users[i - 1]))
                     j = i + 1;
                 String score = new DecimalFormat("0.####").format(this.scores.get(users[i]));
-                string += (j == 1 ? ":first_place:" : j == 2 ? ":second_place:" : j == 3 ? ":third_place:" : ("*" + j + Utils.getOrdinalSuffix(j) + "*")) + " **" + users[i] + "**: " + score + "\n";
+                string += (j == 1 ? ":first_place:" : j == 2 ? ":second_place:" : j == 3 ? ":third_place:" : ("*" + j + Utils.getOrdinalSuffix(j) + "*")) + " **" + Utils.capitalize(users[i]) + "**: " + score + "\n";
             }
         }
         return string;
