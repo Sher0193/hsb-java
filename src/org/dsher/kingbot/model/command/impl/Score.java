@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.dsher.kingbot.Bot;
 import org.dsher.kingbot.model.command.Command;
 import org.dsher.kingbot.model.content.scoreboard.Scoreboard;
+import org.dsher.kingbot.utils.Utils;
 
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
@@ -37,10 +38,10 @@ public class Score extends Command {
 			String changeMsg = "";
 
 			for (int i = args.length -1; i >= 0; i--) {
-				if (isNumeric(args[i].replace(":", "")) || i == 0) {
+				if (Utils.isNumeric(args[i].replace(":", "")) || i == 0) {
 					String[] users;
 					Double amt = 1.0;
-					if (isNumeric(args[i].replace(":", ""))) {
+					if (Utils.isNumeric(args[i].replace(":", ""))) {
 						String[][] arrays = spliceArray(args, i);
 						amt = Double.parseDouble(arrays[1][0].replace(":", "")) * mod;
 						users = spliceArray(arrays[1], 1)[1];
@@ -82,19 +83,6 @@ public class Score extends Command {
 			}
 		}
 		return false;
-	}
-
-	private boolean isNumeric(String s) {
-		if (s == null) {
-			return false;
-		}
-		try {
-			@SuppressWarnings("unused")
-			double d = Double.parseDouble(s);
-		} catch (NumberFormatException nfe) {
-			return false;
-		}
-		return true;
 	}
 
 	/**

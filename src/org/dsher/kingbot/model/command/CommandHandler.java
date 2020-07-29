@@ -1,6 +1,8 @@
 package org.dsher.kingbot.model.command;
 
+import org.dsher.kingbot.model.command.impl.Help;
 import org.dsher.kingbot.model.command.impl.Ping;
+import org.dsher.kingbot.model.command.impl.Roll;
 import org.dsher.kingbot.model.command.impl.Score;
 import org.dsher.kingbot.model.command.impl.Scoreboard;
 
@@ -12,7 +14,9 @@ public class CommandHandler {
 	private static final Command[] COMMANDS = {
 			new Ping(),
 			new Score(),
-			new Scoreboard()
+			new Scoreboard(),
+			new Help(),
+			new Roll()
 	};
 	
 	/***
@@ -26,6 +30,10 @@ public class CommandHandler {
 				return c;
 		}
 		return null;
+	}
+	
+	public static Command[] getCommands() {
+		return COMMANDS;
 	}
 	
 	public static boolean handleUnprefixedCommand(String message) {

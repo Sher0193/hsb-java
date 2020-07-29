@@ -14,6 +14,10 @@ public abstract class Command {
 		return helpEntry;
 	}
 	
+	public String[] getCommands() {
+		return commands;
+	}
+	
 	public boolean isMatchingCommand(String command) {
 		for (int i = 0; i < commands.length; i++) {
 			if (command.equals(commands[i]))

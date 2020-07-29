@@ -2,6 +2,23 @@ package org.dsher.kingbot.utils;
 
 public class Utils {
 	
+	public static boolean isNumeric(String s) {
+		if (s == null) {
+			return false;
+		}
+		try {
+			@SuppressWarnings("unused")
+			double d = Double.parseDouble(s);
+		} catch (NumberFormatException nfe) {
+			return false;
+		}
+		return true;
+	}
+	
+	public static int getRandom(int min, int max) {
+		return (int) ((Math.random() * ((max - min) + 1)) + min);
+	}
+	
 	public static String getOrdinalSuffix(final int n) {
 				
 		int exceptionCheck = n % 100;
