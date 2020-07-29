@@ -5,6 +5,8 @@ import org.dsher.kingbot.model.command.impl.Ping;
 import org.dsher.kingbot.model.command.impl.Roll;
 import org.dsher.kingbot.model.command.impl.Score;
 import org.dsher.kingbot.model.command.impl.Scoreboard;
+import org.dsher.kingbot.model.command.impl.Stopwatch;
+import org.dsher.kingbot.model.command.impl.Uptime;
 
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
@@ -16,7 +18,9 @@ public class CommandHandler {
 			new Score(),
 			new Scoreboard(),
 			new Help(),
-			new Roll()
+			new Roll(),
+			new Stopwatch(),
+			new Uptime()
 	};
 
 	/***

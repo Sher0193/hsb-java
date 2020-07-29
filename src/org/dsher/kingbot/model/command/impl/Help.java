@@ -14,7 +14,7 @@ public class Help extends Command {
 
 	public Help() {
 		String prefix = Bot.getBotInstance().getPrefix();
-		helpEntry = "Use \"" + prefix + "help\" to view an explanation for the various functions of Kingbot. Use \"" + prefix + "help [command]\" to view an explanation for that command.";
+		helpEntry = "Use \"" + prefix + "help\" to view an explanation for the various functions of " + Bot.getBotInstance().getName() + ". Use \"" + prefix + "help [command]\" to view an explanation for that command.";
 		commands = new String[] {"help"};
 	}
 
