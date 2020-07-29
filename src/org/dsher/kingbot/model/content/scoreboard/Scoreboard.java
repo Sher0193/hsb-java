@@ -1,8 +1,9 @@
 package org.dsher.kingbot.model.content.scoreboard;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import org.dsher.kingbot.utils.Utils;
@@ -11,40 +12,41 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.MessageEmbed.Field;
 
-public class Scoreboard {
+public class Scoreboard implements Serializable {
 	
-	private ArrayList<String> users = new ArrayList<>();
-	private HashMap<String, Integer> scores = new HashMap<>();
+	private static final long serialVersionUID = -4058883818810083618L;
+
+	private HashMap<String, Double> scores = new HashMap<>();
 	
-	private int channel = -1;
+	private String channel = "";
 	
-	public Scoreboard(int channel) {
-		this.channel = channel;
+	public Scoreboard(String channel) {
+		setChannelId(channel);
 	}
 	
-	public int getChannelId(){
+	public void setChannelId(String channel) {
+		this.channel = channel;
+	}	
+	public String getChannelId() {
 		return channel;
 	}
 	
-	public boolean addScore(String user, int amt) {
-		// Try to find existing user
-		String toFind = user.trim();
-		for (String u : this.users) {
-			if (toFind.toLowerCase().equals(u.toLowerCase())) {
-				// Found user, add score to existing in hashmap
-				this.scores.replace(u, this.scores.get(u) + amt);
-				return true;
-			}
-		}
-		// Not found
-		if (this.users.add(toFind)) {
-			this.scores.put(toFind, amt);
-			return true;
-		}
-		return false;
+	public void setScores(HashMap<String, Double> scores) {
+		this.scores = scores;
 	}
 	
-	public boolean addScores(String[] users, int amt) {
+	public boolean addScore(String user, double amt) {
+		// Try to find existing user
+		String toFind = user.trim();
+		if (this.scores.get(toFind) != null) {
+			this.scores.replace(toFind, this.scores.get(toFind) + amt < 0 ? 0 : this.scores.get(toFind) + amt);
+		} else {		
+			this.scores.put(toFind.substring(0, 1).toUpperCase() + toFind.substring(1), amt);
+		}
+		return true;
+	}
+	
+	public boolean addScores(String[] users, double amt) {
 		for (String u : users) {
 			if (!addScore(u, amt))
 				return false;
@@ -53,11 +55,10 @@ public class Scoreboard {
 	}
 	
 	public MessageEmbed buildScoreboard(boolean end, String msg) {
-        sort();
-        if (this.channel > 0) {
+        if (!this.channel.isEmpty()) {
         	EmbedBuilder builder = new EmbedBuilder()
         	.setTitle(end ? "Final Score:" : "Current Score")
-        	.setColor(Color.YELLOW)
+        	.setColor(Color.BLUE)
         	.setDescription(this.scoresToString(end));
             if (!msg.isEmpty()) {
             	builder.addField(new Field("Change:", msg, false));
@@ -69,27 +70,38 @@ public class Scoreboard {
 	
 	private String scoresToString(boolean end) {
         String string = "";
-        for (int i = 0, j = 1; i < this.users.size(); i++) {
-            if (this.scores.get(this.users.get(i)) > 0 && this.users.get(i) != "") {
-                if (i > 0 && this.scores.get(this.users.get(i)) < this.scores.get(this.users.get(i - 1)))
+        
+        Object[] array = this.scores.keySet().toArray();
+        
+        String[] users = Arrays.copyOf(array, array.length, String[].class);
+        
+        
+        users = sort(users);
+        
+        for (int i = 0, j = 1; i < users.length; i++) {
+            if (this.scores.get(users[i]) > 0 && users[i] != "") {
+                if (i > 0 && this.scores.get(users[i]) < this.scores.get(users[i - 1]))
                     j = i + 1;
-                string += (j == 1 ? ":first_place:" : j == 2 ? ":second_place:" : j == 3 ? ":third_place:" : ("*" + Utils.getOrdinalSuffix(j) + "*")) + " **" + this.users.get(i) + "**: " + this.scores.get(this.users.get(i)) + "\n";
+                String score = new DecimalFormat("0.####").format(this.scores.get(users[i]));
+                string += (j == 1 ? ":first_place:" : j == 2 ? ":second_place:" : j == 3 ? ":third_place:" : ("*" + j + Utils.getOrdinalSuffix(j) + "*")) + " **" + users[i] + "**: " + score + "\n";
             }
         }
         return string;
     }
 	
-	private void sort() {
-        var len = this.users.size();
-
+	private String[] sort(String[] arr) {
+        var len = arr.length;
         for (var i = 0; i < len; i++) {
             for (var j = 0; j < len - i - 1; j++) {
-                if (this.scores.get(users.get(j)) < this.scores.get(users.get(j + 1))) {
-                    // swap scores
-                	Collections.swap(this.users, j, j + 1);
+                if (this.scores.get(arr[j]) < this.scores.get(arr[j + 1])) {
+                    // swap users
+                	String tempEle = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = tempEle;
                 }
             }
         }
+        return arr;
     }
 
 }

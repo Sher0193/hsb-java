@@ -8,6 +8,7 @@ import java.util.Properties;
 import javax.security.auth.login.LoginException;
 
 import org.dsher.kingbot.model.command.CommandHandler;
+import org.dsher.kingbot.model.content.scoreboard.ScoreboardHandler;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -19,14 +20,16 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
 public class Bot extends ListenerAdapter {
-
-	private String token, prefix, name;
-	
-	private static long launchTime = 0;
 	
 	private static JDA jda;	
 	
 	private static Bot botInstance;
+
+	private String token, prefix, name;
+	
+	private ScoreboardHandler sh = new ScoreboardHandler();
+	
+	private static long launchTime = 0;
 
 	public static void main(String[] args) throws LoginException {
 
@@ -67,6 +70,7 @@ public class Bot extends ListenerAdapter {
 	@Override
 	public void onReady(ReadyEvent event) {
 		launchTime = System.currentTimeMillis();
+		sh.loadScoreboards();
 	}
 	
 	@Override
@@ -85,7 +89,7 @@ public class Bot extends ListenerAdapter {
 			return;
 		
 		// Split message string on spaces
-		String[] splitMsg = msg.getContentRaw().substring(prefix.length()).split("/ +/g");
+		String[] splitMsg = msg.getContentRaw().substring(prefix.length()).split(" ");
 		
 		// First element is the command
 		String command = splitMsg[0].toLowerCase();
@@ -114,6 +118,10 @@ public class Bot extends ListenerAdapter {
 	
 	private String getToken() {
 		return token;
+	}
+	
+	public ScoreboardHandler getScoreboardHandler() {
+		return sh;
 	}
 	
 }

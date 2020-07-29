@@ -1,6 +1,8 @@
 package org.dsher.kingbot.model.command;
 
 import org.dsher.kingbot.model.command.impl.Ping;
+import org.dsher.kingbot.model.command.impl.Score;
+import org.dsher.kingbot.model.command.impl.Scoreboard;
 
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
@@ -8,7 +10,9 @@ import net.dv8tion.jda.api.entities.User;
 public class CommandHandler {
 	
 	private static final Command[] COMMANDS = {
-			new Ping()
+			new Ping(),
+			new Score(),
+			new Scoreboard()
 	};
 	
 	/***
