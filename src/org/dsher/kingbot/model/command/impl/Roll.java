@@ -18,9 +18,7 @@ public class Roll extends Command {
 	@Override
 	public boolean execute(String command, String[] args, MessageChannel channel, User author) {
 		if (args.length > 0 && (args[0].toLowerCase().equals("s") || args[0].toLowerCase().equals("scattergories"))) {
-			char[] validScattergoryLetters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'W'};
-			int roll = Utils.getRandom(0, validScattergoryLetters.length - 1); 
-			channel.sendMessage(":capital_abcd: **" + validScattergoryLetters[roll] + "**").queue();
+			channel.sendMessage(scattergoriesRoll()).queue();
 			return true;
 		} else {
 			int high = 6, low = 1;
@@ -39,6 +37,12 @@ public class Roll extends Command {
 			channel.sendMessage("(" + low + " -> " + high + ") :game_die: **" + roll + "**").queue();
 			return true;
 		}
+	}
+	
+	private String scattergoriesRoll() {
+		char[] validScattergoryLetters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'W'};
+		int roll = Utils.getRandom(0, validScattergoryLetters.length - 1); 
+		return ":capital_abcd: **" + validScattergoryLetters[roll] + "**";
 	}
 
 }

@@ -27,7 +27,7 @@ public class ScoreboardHandler {
 	}
 
 	public boolean addScoreboard(String channelId) {
-		var existing = getScoreboardById(channelId);
+		Scoreboard existing = getScoreboardById(channelId);
 		if (existing != null) {
 			removeScoreboard(existing);
 		}
