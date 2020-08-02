@@ -4,6 +4,7 @@ import org.dsher.kingbot.Bot;
 import org.dsher.kingbot.model.command.Command;
 import org.dsher.kingbot.model.content.scoreboard.ScoreboardHandler;
 
+import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 
@@ -17,9 +18,8 @@ public class Scoreboard extends Command {
 
 	@Override
 	public boolean execute(String command, String[] args, MessageChannel channel, User author) {
-		if (author == null) {
+		if (channel.getType().equals(ChannelType.PRIVATE))
 			return false;
-		}
 		ScoreboardHandler sh = Bot.getBotInstance().getScoreboardHandler();
 		if (args.length > 0) {
 			if (args[0].equals("create")) {

@@ -1,5 +1,6 @@
 package org.dsher.kingbot.model.command;
 
+import org.dsher.kingbot.Bot;
 import org.dsher.kingbot.model.command.impl.Help;
 import org.dsher.kingbot.model.command.impl.Ping;
 import org.dsher.kingbot.model.command.impl.Roll;
@@ -7,7 +8,10 @@ import org.dsher.kingbot.model.command.impl.Score;
 import org.dsher.kingbot.model.command.impl.Scoreboard;
 import org.dsher.kingbot.model.command.impl.Stopwatch;
 import org.dsher.kingbot.model.command.impl.Uptime;
+import org.dsher.kingbot.model.command.impl.Werewolf;
+import org.dsher.kingbot.model.content.werewolf.Game;
 
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 
@@ -20,7 +24,8 @@ public class CommandHandler {
 			new Help(),
 			new Roll(),
 			new Stopwatch(),
-			new Uptime()
+			new Uptime(),
+			new Werewolf()
 	};
 
 	/***
@@ -40,7 +45,13 @@ public class CommandHandler {
 		return COMMANDS;
 	}
 
-	public static boolean handleUnprefixedCommand(String message) {
+	public static boolean handleUnprefixedCommand(Message message) {
+		// ONUW Handling
+		for (Game game : Bot.getBotInstance().getWerewolfHandler().getGamesByUser(message.getAuthor())) {
+			if (game != null) {
+				game.acceptPrivateInput(message.getAuthor(), message.getContentRaw(), message.getChannel());
+			}
+		}
 		return false;
 	}
 

@@ -1,6 +1,12 @@
 package org.dsher.kingbot.utils;
 
 public class Utils {
+	
+	public static String endListString(String s) {
+		if (s == null || s.length() < 2 || s.charAt(s.length() - 2 ) != ',')
+			return s;
+		return s.substring(0, s.length() - 2) + ".";
+	}
 
 	public static String capitalize(String s) {
 		return s.substring(0, 1).toUpperCase() + s.substring(1);

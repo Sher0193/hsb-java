@@ -9,6 +9,7 @@ import javax.security.auth.login.LoginException;
 
 import org.dsher.kingbot.model.command.CommandHandler;
 import org.dsher.kingbot.model.content.scoreboard.ScoreboardHandler;
+import org.dsher.kingbot.model.content.werewolf.WerewolfHandler;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -28,6 +29,7 @@ public class Bot extends ListenerAdapter {
 	private String token, prefix, name;
 
 	private ScoreboardHandler sh = new ScoreboardHandler();
+	private WerewolfHandler wwh = new WerewolfHandler();
 
 	private static long launchTime = 0;
 
@@ -82,7 +84,7 @@ public class Bot extends ListenerAdapter {
 			return;
 
 		// Handle all messages, prefixed and not
-		CommandHandler.handleUnprefixedCommand(msg.getContentRaw());
+		CommandHandler.handleUnprefixedCommand(msg);
 
 		// From this point, do not process unprefixed messages
 		if (msg.getContentRaw().indexOf(prefix) != 0)
@@ -126,6 +128,10 @@ public class Bot extends ListenerAdapter {
 
 	public ScoreboardHandler getScoreboardHandler() {
 		return sh;
+	}
+	
+	public WerewolfHandler getWerewolfHandler() {
+		return wwh;
 	}
 
 }
