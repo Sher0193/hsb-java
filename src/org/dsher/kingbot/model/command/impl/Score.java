@@ -40,7 +40,7 @@ public class Score extends Command {
 			for (int i = args.length -1; i >= 0; i--) {
 				if (Utils.isNumeric(args[i].replace(":", "")) || i == 0) {
 					String[] users;
-					Double amt = 1.0;
+					Double amt = mod;
 					if (Utils.isNumeric(args[i].replace(":", ""))) {
 						String[][] arrays = spliceArray(args, i);
 						amt = Double.parseDouble(arrays[1][0].replace(":", "")) * mod;
