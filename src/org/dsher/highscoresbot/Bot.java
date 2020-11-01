@@ -1,4 +1,4 @@
-package org.dsher.kingbot;
+package org.dsher.highscoresbot;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,9 +7,8 @@ import java.util.Properties;
 
 import javax.security.auth.login.LoginException;
 
-import org.dsher.kingbot.model.command.CommandHandler;
-import org.dsher.kingbot.model.content.scoreboard.ScoreboardHandler;
-import org.dsher.kingbot.model.content.werewolf.WerewolfHandler;
+import org.dsher.highscoresbot.model.command.CommandHandler;
+import org.dsher.highscoresbot.model.content.scoreboard.ScoreboardHandler;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -29,7 +28,6 @@ public class Bot extends ListenerAdapter {
 	private String token, prefix, name;
 
 	private ScoreboardHandler sh = new ScoreboardHandler();
-	private WerewolfHandler wwh = new WerewolfHandler();
 
 	private static long launchTime = 0;
 
@@ -72,7 +70,6 @@ public class Bot extends ListenerAdapter {
 	@Override
 	public void onReady(ReadyEvent event) {
 		launchTime = System.currentTimeMillis();
-		sh.loadScoreboards();
 	}
 
 	@Override
@@ -129,9 +126,4 @@ public class Bot extends ListenerAdapter {
 	public ScoreboardHandler getScoreboardHandler() {
 		return sh;
 	}
-	
-	public WerewolfHandler getWerewolfHandler() {
-		return wwh;
-	}
-
 }

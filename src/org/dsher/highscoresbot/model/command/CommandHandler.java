@@ -1,15 +1,11 @@
-package org.dsher.kingbot.model.command;
+package org.dsher.highscoresbot.model.command;
 
-import org.dsher.kingbot.Bot;
-import org.dsher.kingbot.model.command.impl.Help;
-import org.dsher.kingbot.model.command.impl.Ping;
-import org.dsher.kingbot.model.command.impl.Roll;
-import org.dsher.kingbot.model.command.impl.Score;
-import org.dsher.kingbot.model.command.impl.Scoreboard;
-import org.dsher.kingbot.model.command.impl.Stopwatch;
-import org.dsher.kingbot.model.command.impl.Uptime;
-import org.dsher.kingbot.model.command.impl.Werewolf;
-import org.dsher.kingbot.model.content.werewolf.Game;
+import org.dsher.highscoresbot.model.command.impl.Help;
+import org.dsher.highscoresbot.model.command.impl.Ping;
+import org.dsher.highscoresbot.model.command.impl.Roll;
+import org.dsher.highscoresbot.model.command.impl.Stopwatch;
+import org.dsher.highscoresbot.model.command.impl.Uptime;
+import org.dsher.highscoresbot.model.command.impl.Vsg;
 
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -19,13 +15,11 @@ public class CommandHandler {
 
 	private static final Command[] COMMANDS = {
 			new Ping(),
-			new Score(),
-			new Scoreboard(),
 			new Help(),
 			new Roll(),
 			new Stopwatch(),
 			new Uptime(),
-			new Werewolf()
+			new Vsg()
 	};
 
 	/***
@@ -46,12 +40,6 @@ public class CommandHandler {
 	}
 
 	public static boolean handleUnprefixedCommand(Message message) {
-		// ONUW Handling
-		for (Game game : Bot.getBotInstance().getWerewolfHandler().getGamesByUser(message.getAuthor())) {
-			if (game != null) {
-				game.acceptPrivateInput(message.getAuthor(), message.getContentRaw(), message.getChannel());
-			}
-		}
 		return false;
 	}
 

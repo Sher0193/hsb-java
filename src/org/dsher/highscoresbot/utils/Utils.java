@@ -1,4 +1,4 @@
-package org.dsher.kingbot.utils;
+package org.dsher.highscoresbot.utils;
 
 public class Utils {
 	

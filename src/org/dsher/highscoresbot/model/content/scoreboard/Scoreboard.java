@@ -1,11 +1,11 @@
-package org.dsher.kingbot.model.content.scoreboard;
+package org.dsher.highscoresbot.model.content.scoreboard;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import org.dsher.kingbot.utils.Utils;
+import org.dsher.highscoresbot.utils.Utils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;

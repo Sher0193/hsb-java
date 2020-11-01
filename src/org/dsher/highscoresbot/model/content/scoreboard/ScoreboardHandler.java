@@ -1,11 +1,8 @@
-package org.dsher.kingbot.model.content.scoreboard;
+package org.dsher.highscoresbot.model.content.scoreboard;
 
-import java.io.EOFException;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
@@ -62,32 +59,6 @@ public class ScoreboardHandler {
 			fos.close();
 		} catch (IOException i) {
 			i.printStackTrace();
-		}
-	}
-
-	public void loadScoreboards() {
-		try {
-			File saveFile = new File(SAVE_FILE);
-			if (!saveFile.exists()) {
-				return;
-			}
-			FileInputStream fis = new FileInputStream(saveFile);
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			Scoreboard sb = null;
-			try {
-				do {
-					sb = (Scoreboard)ois.readObject();
-					addScoreboard(sb);
-				} while (sb != null);
-			} catch (EOFException e) {
-
-			}
-			ois.close();
-			fis.close();
-		} catch (IOException i) {
-			i.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		}
 	}
 

@@ -1,7 +1,7 @@
-package org.dsher.kingbot.model.command.impl;
+package org.dsher.highscoresbot.model.command.impl;
 
-import org.dsher.kingbot.Bot;
-import org.dsher.kingbot.model.command.Command;
+import org.dsher.highscoresbot.Bot;
+import org.dsher.highscoresbot.model.command.Command;
 
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;

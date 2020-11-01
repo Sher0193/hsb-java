@@ -1,4 +1,4 @@
-package org.dsher.kingbot.model.command;
+package org.dsher.highscoresbot.model.command;
 
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
